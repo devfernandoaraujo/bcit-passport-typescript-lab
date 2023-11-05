@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import session from "express-session";
@@ -5,6 +6,8 @@ import path from "path";
 import passportMiddleware from './middleware/passportMiddleware';
 
 const port = process.env.port || 8000;
+const flash = require('connect-flash');
+
 
 const app = express();
 
@@ -27,12 +30,19 @@ import authRoute from "./routes/authRoute";
 import indexRoute from "./routes/indexRoute";
 
 // Middleware for express
+app.use(flash());
 app.use(express.json());
 app.use(expressLayouts);
 app.use(express.urlencoded({ extended: true }));
+
 passportMiddleware(app);
 
 app.use((req, res, next) => {
+  
+  res.locals.success_alert_message = req.flash('success_alert_message');
+  res.locals.error_message = req.flash('error_message');
+  res.locals.error = req.flash('error');
+  
   console.log(`User details are: `);
   console.log(req.user);
 

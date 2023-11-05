@@ -1,0 +1,23 @@
+<h1 class="mt-4">Sessions Administration</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<% if (error_message != '' ) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error_message %>
+    </div>
+<% } %>
+<% if (success_alert_message != '' ) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success_alert_message %>
+    </div>
+<% } %>
+<h4>Current Active Sessions</h4>
+  <ul>
+    <% sessions.forEach(session => { %>
+      <li>
+        <strong>Session ID:</strong> <%= session.id %><br>
+        <strong>User ID:</strong> <%= session.user %><br>
+        <a href="/revoke-session/<%= session.id %>">Revoke Session</a>
+      </li>
+    <% }); %>
+  </ul>
+

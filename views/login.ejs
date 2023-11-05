@@ -5,6 +5,14 @@
         <img src="/secure-icon.png" alt="icon" width="20%" />
       </h1>
       <h2>Login</h2>
+      <% if (error_message != '' ) { %>
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error_message %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      <% } %>
       <form action="/auth/login" method="POST">
         <div class="form-group">
           <label for="email">Email</label>
@@ -28,6 +36,9 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
       </form>
+      <div class="row mt-1 pl-3 pr-3">
+        <a href="/auth/github" class="btn btn-secondary btn-block">Login with GitHub</a>
+      </div>
       <p class="mt-4">New User? <a href="/auth/register">Register</a></p>
       <p>Forgot Password? <a href="/auth/forgot">Reset</a></p>
     </div>
